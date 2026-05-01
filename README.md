@@ -1,111 +1,193 @@
-# Network-Guided Transcriptomic Feature Engineering for CAD Severity Classification
+```markdown
+# Network-Guided Transcriptomic Feature Engineering for Coronary Artery Disease Severity Classification
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
-[![bioRxiv](https://img.shields.io/badge/bioRxiv-preprint-red)](YOUR_BIORXIV_LINK_HERE)
+A six-stage machine learning framework using whole-blood RNA-seq data for
+three-class CAD severity classification.
 
-**Authors:** Shreya Vinod Shahu, Jagdish Pimple  
-**Affiliation:** Department of Information Technology, St. Vincent Pallotti College of Engineering and Technology, Nagpur, India  
-**Preprint:** [bioRxiv — April 2026](YOUR_BIORXIV_LINK_HERE)
+**Authors:** Shreya Shahu, Ashwini Shahu, Srushti Shahu, Jagdish Pimple  
+**Institution:** St. Vincent Pallotti College of Engineering and Technology, Nagpur, India  
+**Status:** Preprint submitted to Elsevier
 
 ---
 
 ## Overview
 
-This repository contains the complete reproducible analysis pipeline for the paper:
+Coronary Artery Disease (CAD) is the leading cause of death worldwide.
+This study proposes a six-stage network-guided transcriptomic feature
+engineering framework for non-invasive three-class CAD severity
+classification using whole-blood RNA sequencing data.
 
-> *Network-Guided Transcriptomic Feature Engineering for Coronary Artery Disease
-> Severity Classification: A Six-Stage Machine Learning Framework Using Whole-Blood RNA-seq*
-
-We propose a six-stage pipeline that reduces 28,278 whole-blood RNA-seq genes to 55
-biologically interpretable network features and achieves three-class CAD severity
-classification (LOW / MID / CAD) with AUC = 0.86 / 0.79 / 0.69 using Random Forest.
+**Key findings:**
+- Network-guided co-expression features outperform naive gene selection by 26–28% in F1 macro score
+- Random Forest achieved AUC values of 0.86, 0.79, and 0.69 for LOW, MID, and CAD severity classes
+- MRPS33 is the most consistent and reproducible blood transcriptomic biomarker for CAD severity
+- Progressive downregulation of ribosomal machinery is identified as a molecular hallmark of CAD severity
 
 ---
 
-## Key Results
+## Repository Structure
 
-| Model | CV F1 Macro | Test AUC (LOW) | Test AUC (MID) | Test AUC (CAD) |
-|---|---|---|---|---|
-| Random Forest (network-guided) | 0.461 | 0.86 | 0.79 | 0.69 |
-| SVM (network-guided) | 0.465 | — | — | — |
-| Random chance | 0.333 | 0.50 | 0.50 | 0.50 |
-
-Top biomarker: **MRPS33** (mitochondrial ribosomal protein, importance = 0.043 ± 0.023)
+```
+cad-transcriptomics/
+│
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── data/
+│   └── README.md              # Instructions to download data from GEO
+│
+├── notebooks/
+│   └── cad_pipeline.ipynb     # Main analysis notebook (full pipeline)
+│
+├── figures/
+│   ├── fig1_pipeline.png
+│   ├── fig2a_pca.png
+│   ├── fig2b_heatmap.png
+│   ├── fig3_feature_comparison.png
+│   ├── fig4_roc.png
+│   ├── fig5_importance.png
+│   └── fig6_pathway.png
+│
+└── paper/
+    ├── cas-dc-template.tex
+    └── cas-refs.bib
+```
 
 ---
 
 ## Data
 
-RNA-seq data are publicly available from NCBI GEO:
+The dataset used in this study is publicly available from the
+**Gene Expression Omnibus (GEO)** repository:
 
-- **Accession:** [GSE221911](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE221911)
-- **Original study:** McCaffrey et al., 2023, *J. Mol. Cell. Cardiol. Plus*
-- **Cohort:** 177 patients undergoing coronary catheterisation (after preprocessing: n = 168)
+- **Accession:** GSE221911
+- **Link:** https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE221911
+- **File:** `GSE221911_Illumina_raw_read_count_177_pt.xlsx`
 
-Raw data are not stored in this repository. Download instructions are in `data/README.md`.
+Download the file and place it in the `data/` folder before running
+the notebook.
 
----
-
-## Reproducing the Analysis
-
-### 1. Clone and set up environment
-
-```bash
-git clone https://github.com/Shreyashahu/cad-transcriptomics.git
-cd cad-transcriptomics
-conda env create -f environment.yml
-conda activate cad-transcriptomics
-```
-
-### 2. Download data
-
-Follow instructions in `data/README.md` to download GSE221911 from GEO and place
-files in `data/processed/`.
-
-### 3. Run notebooks in order
-
-```bash
-jupyter notebook notebooks/01_preprocessing.ipynb
-```
-
-Run notebooks 01 through 06 sequentially. Each notebook saves intermediate outputs
-to `results/` that are loaded by the next notebook.
-
-### 4. Run all at once (optional)
-
-```bash
-jupyter nbconvert --to notebook --execute notebooks/*.ipynb
-```
+> The raw data file is not included in this repository due to its size.
 
 ---
 
-## Pipeline Summary
+## Pipeline Overview
 
-| Stage | Script/Notebook | Description |
-|---|---|---|
-| 1. Preprocessing | `01_preprocessing.ipynb` | Filtering, CPM normalization, ComBat, outlier removal |
-| 2. DEA | `02_DEA_and_clustering.ipynb` | ANOVA, top 1,000 DEGs |
-| 3. Network features | `02_DEA_and_clustering.ipynb` | K-Means co-expression, eigengenes, hub genes |
-| 4. ML classification | `03_ML_classification.ipynb` | 5 classifiers, GridSearchCV, LOOCV |
-| 5. Feature importance | `04_feature_importance.ipynb` | Permutation importance, 30 repetitions |
-| 6. Pathway enrichment | `05_pathway_enrichment.ipynb` | KEGG + GO via Enrichr API |
+The six-stage pipeline consists of:
+
+1. **Preprocessing** — Gene filtering, CPM normalization, ComBat batch
+   correction, sex-linked gene removal
+2. **Exploratory Data Analysis** — PCA-based outlier removal, hierarchical
+   clustering, quality validation
+3. **Differential Expression Analysis** — One-way ANOVA, Benjamini-Hochberg
+   FDR correction, top 1,000 DEG selection
+4. **Co-expression Network Construction** — K-Means clustering, silhouette
+   coefficient optimization, module-trait association
+5. **Feature Matrix Construction** — Module eigengenes, hub gene
+   identification, 99.8% dimensionality reduction (28,278 → 55 features)
+6. **Machine Learning & Validation** — Five classifiers, stratified 5-fold
+   CV, LOOCV, permutation feature importance, pathway enrichment analysis
 
 ---
 
 ## Requirements
 
-See `requirements.txt`. Key dependencies:
+Python 3.10 is required. Install all dependencies using:
 
-- Python 3.10
-- scikit-learn 1.4.2
-- pandas, numpy, scipy
-- pydeseq2 / combat-seq (batch correction)
-- gseapy (pathway enrichment)
-- matplotlib, seaborn
+```bash
+pip install -r requirements.txt
+```
+
+**requirements.txt:**
+```
+numpy
+pandas
+scikit-learn==1.4.2
+xgboost==2.0.3
+matplotlib
+seaborn
+gseapy>=1.0.0
+scipy
+combat-seq
+```
+
+---
+
+## How to Run
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Shreyashahu/cad-transcriptomics.git
+cd cad-transcriptomics
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Download the dataset from GEO (GSE221911) and place it in `data/`
+
+4. Open and run the notebook:
+```bash
+jupyter notebook notebooks/cad_pipeline.ipynb
+```
+
+Run all cells from top to bottom. The notebook is self-contained and
+will reproduce all results, tables, and figures from the paper.
+
+---
+
+## Results Summary
+
+| Feature Set | F1 Macro | Accuracy |
+|---|---|---|
+| Network-guided (55 features) | 0.418 | 0.446 |
+| Top 55 raw genes | 0.310 | 0.360 |
+| Top 55 DE genes | 0.302 | 0.349 |
+| All 1,000 DE genes | 0.468 | 0.491 |
+| Random chance | 0.333 | 0.333 |
+
+| Class | AUC (OvR) |
+|---|---|
+| LOW | 0.86 |
+| MID | 0.79 |
+| CAD | 0.69 |
 
 ---
 
 ## Citation
 
-If you use this code or data, please cite:
+If you use this code or find this work useful, please cite:
+
+```
+Shahu, S., Shahu, A., Shahu, S., & Pimple, J. (2025).
+Network-Guided Transcriptomic Feature Engineering for Coronary Artery
+Disease Severity Classification: A Six-Stage Machine Learning Framework
+Using Whole-Blood RNA-seq. Preprint submitted to Elsevier.
+```
+
+---
+
+## Acknowledgements
+
+The authors thank Timothy A. McCaffrey and colleagues at The George
+Washington University for making the TruCAD RNA-seq dataset (GSE221911)
+publicly available on the Gene Expression Omnibus repository.
+
+---
+
+## License
+
+This project is licensed under the MIT License.  
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+- **Shreya Shahu** — shreyashahu1404@gmail.com  
+```
+
+---
