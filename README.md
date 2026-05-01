@@ -1,11 +1,14 @@
-```markdown
 # Network-Guided Transcriptomic Feature Engineering for Coronary Artery Disease Severity Classification
 
 A six-stage machine learning framework using whole-blood RNA-seq data for
 three-class CAD severity classification.
 
-**Authors:** Shreya Shahu, Ashwini Shahu, Srushti Shahu, Jagdish Pimple  
-**Institution:** St. Vincent Pallotti College of Engineering and Technology, Nagpur, India  
+**Authors:**  
+- Shreya Shahu — St. Vincent Pallotti College of Engineering and Technology, Nagpur, India  
+- Ashwini Shahu — City Premier College, Nagpur, India  
+- Srushti Shahu — G H Raisoni College, Nagpur, India  
+- Jagdish Pimple — St. Vincent Pallotti College of Engineering and Technology, Nagpur, India
+
 **Status:** Preprint submitted to Elsevier
 
 ---
@@ -35,10 +38,10 @@ cad-transcriptomics/
 ├── .gitignore
 │
 ├── data/
-│   └── README.md              # Instructions to download data from GEO
+│   └── README.md
 │
 ├── notebooks/
-│   └── cad_pipeline.ipynb     # Main analysis notebook (full pipeline)
+│   └── CAD_Project.ipynb
 │
 ├── figures/
 │   ├── fig1_pipeline.png
@@ -76,18 +79,12 @@ the notebook.
 
 The six-stage pipeline consists of:
 
-1. **Preprocessing** — Gene filtering, CPM normalization, ComBat batch
-   correction, sex-linked gene removal
-2. **Exploratory Data Analysis** — PCA-based outlier removal, hierarchical
-   clustering, quality validation
-3. **Differential Expression Analysis** — One-way ANOVA, Benjamini-Hochberg
-   FDR correction, top 1,000 DEG selection
-4. **Co-expression Network Construction** — K-Means clustering, silhouette
-   coefficient optimization, module-trait association
-5. **Feature Matrix Construction** — Module eigengenes, hub gene
-   identification, 99.8% dimensionality reduction (28,278 → 55 features)
-6. **Machine Learning & Validation** — Five classifiers, stratified 5-fold
-   CV, LOOCV, permutation feature importance, pathway enrichment analysis
+1. **Preprocessing** — Gene filtering, CPM normalization, ComBat batch correction, sex-linked gene removal
+2. **Exploratory Data Analysis** — PCA-based outlier removal, hierarchical clustering, quality validation
+3. **Differential Expression Analysis** — One-way ANOVA, Benjamini-Hochberg FDR correction, top 1,000 DEG selection
+4. **Co-expression Network Construction** — K-Means clustering, silhouette coefficient optimization, module-trait association
+5. **Feature Matrix Construction** — Module eigengenes, hub gene identification, 99.8% dimensionality reduction (28,278 → 55 features)
+6. **Machine Learning & Validation** — Five classifiers, stratified 5-fold CV, LOOCV, permutation feature importance, pathway enrichment analysis
 
 ---
 
@@ -99,30 +96,19 @@ Python 3.10 is required. Install all dependencies using:
 pip install -r requirements.txt
 ```
 
-**requirements.txt:**
-```
-numpy
-pandas
-scikit-learn==1.4.2
-xgboost==2.0.3
-matplotlib
-seaborn
-gseapy>=1.0.0
-scipy
-combat-seq
-```
-
 ---
 
 ## How to Run
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Shreyashahu/cad-transcriptomics.git
 cd cad-transcriptomics
 ```
 
 2. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -130,8 +116,9 @@ pip install -r requirements.txt
 3. Download the dataset from GEO (GSE221911) and place it in `data/`
 
 4. Open and run the notebook:
+
 ```bash
-jupyter notebook notebooks/cad_pipeline.ipynb
+jupyter notebook notebooks/CAD_Project.ipynb
 ```
 
 Run all cells from top to bottom. The notebook is self-contained and
@@ -187,7 +174,5 @@ See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
-- **Shreya Shahu** — shreyashahu1404@gmail.com  
-```
-
----
+- **Shreya Shahu** — shreyashahu1404@gmail.com
+````
