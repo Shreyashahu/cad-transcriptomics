@@ -1,4 +1,3 @@
-```markdown
 # Data
 
 The raw data used in this study is **not included** in this repository
@@ -46,4 +45,3 @@ due to file size constraints.
 McCaffrey, T.A., et al. (2023). RNAseq profiling of blood from patients
 with coronary artery disease: Signature of a T cell imbalance.
 *Journal of Molecular and Cellular Cardiology Plus*, 4, 100033.
-```
