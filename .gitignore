@@ -1,0 +1,44 @@
+# Data files (too large for GitHub)
+data/*.xlsx
+data/*.csv
+data/*.txt
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+# Compiled PDF (don't upload until published)
+paper/*.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+venv/
+env/
+.env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
