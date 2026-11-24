@@ -6,7 +6,7 @@ A six-stage machine learning framework using whole-blood RNA-seq data for three-
 - Shreya Shahu — St. Vincent Pallotti College of Engineering and Technology, Nagpur, India
 - Ashwini Shahu — City Premier College, Nagpur, India
 - Srushti Shahu — G H Raisoni College, Nagpur, India
-- Jagdish Pimple — G H Raisoni College of Engineering and Management, Nagpur (GHRCEMN) India
+- Jagdish Pimple — G H Raisoni College of Engineering and Management, Nagpur (GHRCEMN), India
 
 **Status:** Under review, STAR Global Conference (2026)
 
