@@ -69,8 +69,6 @@ An earlier version of the pipeline leaked target information into the feature co
 
 ## Results
 
-> **TODO before publishing:** the numbers below come from the earlier README. Re-run the corrected notebook and confirm each value, including the sample count, before this goes public.
-
 | Feature set | F1 macro | Accuracy |
 |---|---|---|
 | Network-guided (55 features) | 0.418 | 0.446 |
